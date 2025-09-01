@@ -1,0 +1,15 @@
+Rails.application.routes.draw do
+  devise_for :users
+  resources :users, only: [:show, :edit, :update, :index] do
+    collection do
+      get 'mypage', to: 'users#mypage', as: :mypage
+      delete 'withdraw'
+    end
+  end
+
+  resources :recipes
+
+  root to: 'homes#top'
+  get '/about', to: 'homes#about', as: 'about'
+  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+end

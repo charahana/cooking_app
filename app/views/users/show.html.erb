@@ -1,0 +1,40 @@
+<div class="container">
+  <h2><%= @user.name %>さんのプロフィール</h2>
+  <div class="profile-section mb-4 d-flex align-items-center">
+    <% if @user.profile_image.attached? %>
+      <%= image_tag @user.profile_image.variant(resize_t_fill: [150, 150]), class: "rounded-circle me-3", alt: "user name" %>
+    <% else %>
+      <%= image_tag "no_image.jpg", size: "150x150", class: "rounded-circle me-3", alt: "no image" %>
+    <% end %>
+    <div>
+      <p><strong>ユーザー名:</strong><%= @user.name %></p>
+      <p><strong>登録日:</strong><%= @user.created_at.strftime("%y/%m/%d") %></p>
+      <% if user_signed_in? && current_user == @user %>
+        <%= link_to "プロフィール編集", edit_user_path(@user), class: "btn btn-primary btn-sm" %>
+      <% end %>
+    </div>
+  </div>
+  <hr>
+  <h3><%= @user.name %>さんの投稿レシピ一覧</h3>
+  <% if @recipes.any? %>
+    <div class="row">
+      <% @recipes.each do |recipe| %>
+        <div class="col-md-4 mb-4">
+          <div class="card h-100 shadow-sm">
+            <% if recipe.image.attached? %>
+              <%= link_to image_tag(recipe.image.variant(resize_to_fill: [400, 250]), class: "card-img-top", alt: "recipe"), recipe_path(recipe) %>
+            <% else %>
+              <%= link_to image_tag("no_image.jpg", size: "400x250", class: "card-img-top", alt: "no image"), recipe_path(recipe) %>
+            <% end %>
+            <div class="card-body">
+              <h5><%= link_to recipe.title, recipe_path(recipe), class: "text-decoration-none text-dark" %></h5>
+              <p class="text-muted small"><strong>投稿日:</strong><%= recipe.created_at.strftime("%y/%m/%d") %></p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p>投稿したレシピがありません。</p>
+  <% end %>
+</div>

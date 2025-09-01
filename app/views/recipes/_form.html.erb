@@ -1,0 +1,12 @@
+<%= form_with model: @recipe, local: true do |f| %>
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+
+    <%= f.label :body, "材料/作り方" %>
+    <%= f.text_field :body %>
+
+    <%= f.label :image, "料理材料" %>
+    <%= f.file_field :image %>
+
+    <%= f.submit "保存" %>
+<% end %>

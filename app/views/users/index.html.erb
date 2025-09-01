@@ -1,0 +1,22 @@
+<div class="container">
+  <h2>ユーザー一覧</h2>
+  <% if @users.any? %>
+    <div class="row">
+      <% @users.each do |user| %>
+        <div class="col-md-4 mb-4">
+          <div class="card h-100 shadow-sm text-center p-3">
+            <% if user.profile_image.attached? %>
+              <%= image_tag user.profile_image.variant(resize_to_fill: [150, 150]), class: "rounded-circle mb-3", alt: user.name %>
+            <% else %>
+              <%= image_tag "no_image.jpg", size: "150x150", class: "rounded-circle mb-3", alt: "no image" %>
+            <% end %>
+            <h5><%= link_to user.name, user_path(user), class: "text-decoration-none" %></h5>
+            <p class="text-muted small">登録日:<%= user.created_at.strftime("%y/%m/%d") %></p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p>ユーザーはいません。</p>
+  <% end %>
+</div>

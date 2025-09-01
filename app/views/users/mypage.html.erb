@@ -1,0 +1,42 @@
+<div class="mypage-container">
+  <div class="profile-section">
+    <h2>マイページ</h2>
+    <div class="profile-box">
+      <% if @user.profile_image.attached? %>
+        <%= image_tag @user.profile_image, size: "100x100", class: "profile-image" %>
+      <% else %>
+        <%= image_tag "no_image.jpg", size: "100x100", class: "profile-image" %>
+      <% end %>
+      <div class="profile-info">
+        <p><strong>ユーザー名:</strong> <%= @user.name %></p>
+        <%= link_to "プロフィール編集", edit_user_path(@user), class: "btn btn-primary" %>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="recipes-section">
+    <h3>自分の投稿一覧</h3>
+
+    <% if @recipes.any? %>
+      <ul class="recipes-list", style="list-style: none;">
+        <% @recipes.each do |recipe| %>
+          <li class="recipe-item">
+            <% if recipe.image.attached? %>
+              <%= link_to image_tag(recipe.image, size: "120x120"), recipe_path(recipe) %>
+            <% end %>
+            <div class="recipe-info">
+              <%= link_to recipe.title, recipe_path(recipe), class: "recipe-title" %>
+              <p class="recipe-date">投稿日: <%= recipe.created_at.strftime("%Y/%m/%d") %></p>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+      <%= link_to "もっと見る", users_path, class: "btn btn-secondary" %>
+    <% else %>
+      <p>まだ投稿がありません。</p>
+    <% end %>
+  </div>
+
+</div>

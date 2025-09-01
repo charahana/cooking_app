@@ -1,0 +1,25 @@
+<div class="container my-5">
+  <h2>プロフィール編集</h2>
+  <%= form_with(model: @user, local: true,html: { multipart: true }) do |f| %>
+    <div class="mb-3">
+      <%= f.label :name, "ユーザー名" %>
+      <%= f.text_field :name, class: "form-control", required: true %>
+    </div>
+    <div class="mb-3">
+      <%= f.label :email, "メールアドレス" %>
+      <%= f.email_field :email, class: "form-control", required: true %>
+    </div>
+    <div class="mb-3">
+      <%= f.label :profile_image, "プロフィール画像" %><br>
+      <% if @user.profile_image.attached? %>
+        <%= image_tag @user.profile_image.variant(resize_to_limit: [150, 150]), class: "mb-2 rounded" %><br>
+      <% end %>
+      <%= f.file_field :profile_image, accept: 'image/*', class: "form-control-file" %>
+      <small class="form-text text-muted">画像を変更する場合はこちらからアップロードしてください</small>
+    </div>
+    <%= f.submit "更新する", class: "btn btn-primary" %>
+    <%= link_to "戻る", mypage_users_path, class: "btn btn-secondary ms-2" %>
+  <% end %>
+  <hr class="my-4">
+  <%= link_to "退会する", withdraw_users_path, method: :delete, class: "btn btn-danger" %>
+</div>
