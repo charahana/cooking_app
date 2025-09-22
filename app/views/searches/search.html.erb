@@ -1,0 +1,14 @@
+<h2>検索結果 (<%= @range %>)</h2>
+<% if @results.present? %>
+  <% if @range == "User" %>
+    <% @results.each do |user| %>
+      <p><%= link_to user.name, user_path(user) %></p>
+    <% end %>
+  <% else %>
+    <% @results.each do |recipe| %>
+      <p><%= link_to recipe.title, recipe_path(recipe) %></p>
+    <% end %>
+  <% end %>
+<% else %>
+  <p>該当する<%= @range == "User" ? "ユーザー" : "投稿" %>はありませんでした。</p>
+<% end %>

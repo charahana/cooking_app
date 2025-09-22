@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
+  devise_for :admins
   devise_for :users
+  get "search" => "searches#search"
   resources :users, only: [:show, :edit, :update, :index] do
     collection do
       get 'mypage', to: 'users#mypage', as: :mypage
@@ -7,7 +9,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :recipes
+  resources :recipes do
+    resources :comments, only: [:create, :destroy]
+  end
 
   root to: 'homes#top'
   get '/about', to: 'homes#about', as: 'about'

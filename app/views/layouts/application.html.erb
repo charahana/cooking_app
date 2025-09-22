@@ -30,6 +30,9 @@
               <li>
                 <%= link_to "レシピ一覧", recipes_path, class: "nav-link" %>
               </li>
+              <li>
+                <%= link_to "ユーザー一覧", users_path, class: "nav-link" %>
+              </li>
               <% if user_signed_in? %>
                 <li>
                   <%= link_to "レシピ作成", new_recipe_path, class: "nav-link" %>
@@ -52,6 +55,17 @@
           </div>
         </div>
       </nav>
+    <% if user_signed_in? %>
+      <div class="bg-light py-2 shadow-sm">
+        <div class="container">
+          <%= form_with url: search_path, method: :get, local: true, class: "d-flex" do %>
+            <%= select_tag :range, options_for_select([["ユーザー", "User"], ["投稿", "Recipe"]], params[:range]), class: "form-select me-2 w-auto" %>
+            <%= text_field_tag :keyword, params[:keyword], placeholder: "検索ワードを入力", class: "form-control me-2" %>
+            <%= submit_tag "検索", class: "btn btn-outline-primary" %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
     </header>
     <main class="flex-grow-1">
       <div class="container py-4">

@@ -9,4 +9,28 @@
   <%= link_to "編集", edit_recipe_path(@recipe) %>
   <%= link_to "削除", recipe_path(@recipe), method: :delete %>
 <% end %>
+<hr>
+<h3>コメント</h3>
+<% @recipe.comments.each do |comment| %>
+  <div class="border rounded p-2 mb-2">
+    <p><%= comment.body %></p>
+    <small class="text-muted">
+      by <%= comment.user.name %> | <%= comment.created_at.strftime("%Y-%m-%d") %>
+    </small>
+    <% if comment.user == current_user %>
+      <%= link_to "削除", recipe_comment_path(@recipe, comment), method: :delete %>
+    <% end %>
+  </div>
+<% end %>
+<% if user_signed_in? %>
+  <%= form_with(model: [@recipe, Comment.new], local: true) do |f| %>
+    <div class="mb-3">
+      <%= f.text_area :body, class: "form-control", rows: 3 %>
+    </div>
+    <%= f.submit "コメント投稿", class: "btn btn-primary" %>
+  <% end %>
+<% else %>
+  <p><%= link_to "ログイン", new_user_session_path %></p>
+<% end %>
+<hr>
 <%= link_to "一覧に戻る", recipes_path %>

@@ -1,3 +1,7 @@
-<h1>新しいレシピ</h1>
-<%= render "form", recipe: @recipe %>
-<%= link_to "一覧に戻る", recipes_path %>
+<div class="container mt-4">
+  <h1>新しいレシピ</h1>
+  <%= render "form", recipe: @recipe %>
+  <div class="mt-3">
+    <%= link_to "一覧に戻る", recipes_path, class: "btn btn-secondary" %>
+  </div>
+</div>

@@ -9,6 +9,7 @@
     <div>
       <p><strong>ユーザー名:</strong><%= @user.name %></p>
       <p><strong>登録日:</strong><%= @user.created_at.strftime("%y/%m/%d") %></p>
+      <p><strong>コメント数:</strong><%= @user.comments.count %></p>
       <% if user_signed_in? && current_user == @user %>
         <%= link_to "プロフィール編集", edit_user_path(@user), class: "btn btn-primary btn-sm" %>
       <% end %>

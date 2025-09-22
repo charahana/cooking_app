@@ -12,6 +12,7 @@
             <% end %>
             <h5><%= link_to user.name, user_path(user), class: "text-decoration-none" %></h5>
             <p class="text-muted small">登録日:<%= user.created_at.strftime("%y/%m/%d") %></p>
+            <p class="text-muted small">コメント数:<%= user.comments.count %></p>
           </div>
         </div>
       <% end %>

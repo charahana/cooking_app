@@ -1,12 +1,18 @@
 <%= form_with model: @recipe, local: true do |f| %>
+  <div class="mb-3">
     <%= f.label :title %>
     <%= f.text_field :title %>
+  </div>
 
+  <div class="mb-3">
     <%= f.label :body, "材料/作り方" %>
     <%= f.text_field :body %>
+  </div>
 
+  <div class="mb-3">
     <%= f.label :image, "料理材料" %>
     <%= f.file_field :image %>
+  </div>
 
-    <%= f.submit "保存" %>
+    <%= f.submit "保存", class: "btn btn-primary" %>
 <% end %>
