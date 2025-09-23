@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  devise_for :admins
+  devise_for :admins, controllers: {
+    session: 'admin/sessions'
+  }
+  
   devise_for :users
   get "search" => "searches#search"
   resources :users, only: [:show, :edit, :update, :index] do
