@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :admins, skip: [:registrations], controllers: {
-    sessions: 'admin/sessions'
-  }
+  devise_for :admins, skip: [:registrations]
   
   devise_for :users
   get "search" => "searches#search"
