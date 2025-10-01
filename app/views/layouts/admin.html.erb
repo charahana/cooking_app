@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin | CookingApp</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= stylesheet_pack_tag 'application', media: 'all' %>
+  <%= javascript_pack_tag 'application' %>
+</head>
+
+<body class="bg-light">
+  <header class="bg-dark text-white p-3">
+    <div class="container">
+      <h1>管理者ダッシュボード</h1>
+      <%= link_to "サイトへ戻る", root_path, class: "btn btn-outline-light btn-sm" %>
+      <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "btn btn-danger btn-sm" %>
+    </div>
+  </header>
+
+  <main class="container py-4">
+    <% flash.each do |key, message| %>
+      <div class="alert alert-<%= key == 'alert' ? 'danger' : 'success' %>"><%= message %></div>
+    <% end %>
+    <%= yield %>
+  </main>
+</body>
+</html>

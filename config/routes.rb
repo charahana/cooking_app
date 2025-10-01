@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
-  devise_for :admins, skip: [:registrations]
+  namespace :admins do
+    root to: 'dashboard#index'
+  end
+
+  devise_for :admins, skip: [:registrations], controllers: {
+    sessions: 'admins/sessions'
+  }
   
   devise_for :users
   get "search" => "searches#search"
