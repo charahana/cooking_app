@@ -1,0 +1,11 @@
+<h2>レシピ詳細</h2>
+<div class="card mb-4">
+  <div class="card-body">
+    <h3><%= @recipe.title %></h3>
+    <p><strong>投稿者:</strong><%= @recipe.user&.name || "不明" %></p>
+    <p><strong>説明:</strong><%= simple_format(@recipe.body) %></p>
+  </div>
+</div>
+
+<%= link_to "削除", admins_recipe_path(@recipe), method: :delete, data: { confirm: "本当に削除しますか？"}, class: "btn btn-danger" %>
+<%= link_to "一覧に戻る", admins_recipes_path, class: "btn btn-secondary" %>

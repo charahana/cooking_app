@@ -3,5 +3,7 @@ class Admins::DashboardController < ApplicationController
   before_action :authenticate_admin!
   
   def index
+    @users_count = User.count
+    @recipes_count = Recipe.count
   end
 end

@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   namespace :admins do
     root to: 'dashboard#index'
+    resources :users, only: [:index, :show, :destroy]
+    resources :recipes, only: [:index, :show, :destroy]
   end
 
   devise_for :admins, skip: [:registrations], controllers: {
