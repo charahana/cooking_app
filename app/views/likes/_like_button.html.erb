@@ -1,0 +1,15 @@
+<% if user_signed_in? %>
+  <% if recipe.likes.exists?(user: current_user) %>
+    <%= button_to recipe_like_path(recipe), method: :post, class: "btn btn-danger btn-sm" do %>
+      ❤ いいね済み
+    <% end %>
+  <% else %>
+    <%= button_to recipe_like_path(recipe), method: :post, class:"btn btn-outline-danger btn-sm" do %>
+      ❤ いいね
+    <% end %>
+  <% end %>
+  <span class="ms-2"><%= recipe.likes.count %>件</span>
+<% else %>
+  <span class="text-muted">❤ <%= recipe.likes.count %>件</span>
+  <%= link_to "ログインしていいね", new_user_session_path, class: "btn btn-outline-primary btn-sm ms-2" %>
+<% end %>

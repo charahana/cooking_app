@@ -1,0 +1,27 @@
+<div class="container py-4">
+  <h2 class="mb-4">タグ:<%= @tag.name %>のレシピ一覧</h2>
+  <% if @recipes.any? %>
+    <div class="row">
+      <% @recipes.each do |recipe| %>
+        <div class="col-md-4 mb-4">
+          <div class="card h-100 shadow-sm">
+            <% if recipe.image.attached? %>
+              <%= link_to image_tag(recipe.image.variant(resize_to_fill: [400, 250]), class: "card-img-top"), recipe_path(recipe) %>
+            <% else %>
+              <%= link_to image_tag("no_image.jpg", size: "400*250", class: "card-img-top"), recipe_path(recipe) %>
+            <% end %>
+            <div class="card-body">
+              <h5><%= link_to recipe.title, recipe_path(recipe), class: "text-decoration-none text-dark" %></h5>
+              <p class="text-muted small">投稿者:<%= recipe.user.name %></p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p>このタグが付いたレシピはまだありません。</p>
+  <% end %>
+  <div class="text-center mt-4">
+    <%= link_to "タグ一覧に戻る", tags_path, class: "btn btn-outline-secondary" %>
+  </div>
+</div>

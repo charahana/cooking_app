@@ -1,18 +1,26 @@
 <%= form_with model: @recipe, local: true do |f| %>
   <div class="mb-3">
-    <%= f.label :title %>
-    <%= f.text_field :title %>
+    <%= f.label :title, "タイトル", class: "form-label fw-bold" %>
+    <%= f.text_field :title, class: "form-control" %>
   </div>
 
   <div class="mb-3">
-    <%= f.label :body, "材料/作り方" %>
-    <%= f.text_field :body %>
+    <%= f.label :body, "材料/作り方", class: "form-label fw-bold" %>
+    <%= f.text_area :body, class: "form-control", rows: 6 %>
   </div>
 
   <div class="mb-3">
-    <%= f.label :image, "料理材料" %>
-    <%= f.file_field :image %>
+    <%= f.label :tags, "タグ(カンマ区切りで入力)", class: "form-label fw-bold" %>
+    <%= f.text_field :tag_names, value: recipe.tags.map(&:name).join(","), class: "form-control" %>
   </div>
 
-    <%= f.submit "保存", class: "btn btn-primary" %>
+  <div class="mb-3">
+    <%= f.label :image, "料理写真", class: "form-label fw-bold" %>
+    <%= f.file_field :image, class: "form-control" %>
+  </div>
+
+  <div class="d-flex flex-wrap gap-2 mt-4">
+    <%= f.submit "下書き", name: "commit", value: "下書き", class: "btn btn-outline-primary" %>
+    <%= f.submit "公開する", name: "commit", value: "公開する", class: "btn btn-success" %>
+  </div>
 <% end %>

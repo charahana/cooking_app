@@ -1,9 +1,12 @@
 <div class="bg-light text-center py-5 mb-5">
   <h1 class="display-4 fw-bold text-primary">
-    <i class="fas fa-utensils me-2"></i> <span>CookingApp
+    <i class="fas fa-utensils me-2"></i> <span>CookingApp</span>
   </h1>
   <p class="lead">みんなでレシピをシェアしよう！</p>
   <%= link_to "レシピ一覧を見る", recipes_path, class: "btn btn-primary btn-lg mt-3" %>
+  <% unless user_signed_in? %>
+    <%= link_to "新規登録する", new_user_registration_path, class: "btn btn-success btn-lg mt-3 ms-2" %>
+  <% end %>
 </div>
 <div class="container">
   <div class="row mb-5">
@@ -26,8 +29,8 @@
       <div class="card shadow-sm h-100">
         <div class="card-body">
           <i class="fas fa-heart fa-2x text-danger mb-3"></i>
-          <h5 class="card-title">コメント</h5>
-          <p class="card-text small text-muted">気に入ったレシピにコメントができます。</p>
+          <h5 class="card-title">いいね・コメント</h5>
+          <p class="card-text small text-muted">気に入ったレシピにいいねやコメントができます。</p>
         </div>
       </div>
     </div>
@@ -35,10 +38,26 @@
       <div class="card shadow-sm h-100">
         <div class="card-body">
           <i class="fas fa-tags fa-2x text-success mb-3"></i>
-          <h5 class="card-title">検索</h5>
-          <p class="card-text small text-muted">検索を使って簡単にレシピと投稿者を探せます</p>
+          <h5 class="card-title">タグ検索</h5>
+          <p class="card-text small text-muted">タグを使って簡単にレシピを探せます。</p>
         </div>
       </div>
     </div>
+    <div class="col-md-3 mb-4">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <i class="fas fa-user-friends fa-2x text-info mb-3"></i>
+          <h5 class="card-title">フォロー機能</h5>
+          <p class="card-text small text-muted">気になるユーザーをフォローして更新をチェック！</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="text-center my-5">
+    <% if user_signed_in? %>
+      <%= link_to "レシピを投稿してみる", new_recipe_path, class: "btn btn-warning btn-lg" %>
+    <% else %>
+      <%= link_to "今すぐ登録して始める", new_user_registration_path, class: "btn btn-success btn-lg" %>
+    <% end %>
   </div>
 </div>

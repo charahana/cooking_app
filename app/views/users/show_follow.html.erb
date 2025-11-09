@@ -1,0 +1,36 @@
+<div class="coutainer">
+  <% if action_name == "followings" %>
+    <h2><%= @user.name %>さんのフォロー中</h2>
+  <% else %>
+    <h2><%= @user.name %>さんのフォロワー</h2>
+  <% end %>
+
+  <% if @users.any? %>
+    <div class="row mt-3">
+      <% @users.each do |user| %>
+        <div class="col-md-4 mb-3">
+          <div class="card p-3 text-center shadow-sm">
+            <% if user.profile_image.attached? %>
+              <%= image_tag user.profile.variant(resize_to_fill: [100, 100]), class: "rounded-circle mb-2", alt: user.name %>
+            <% else %>
+              <%= image_tag "no_image.jpg", size: "100*100", class: "rounded-circle mb-2" %>
+            <% end %>
+            <h5><%= link_to user.name, user_path(user), class: "text-decoration-none" %></h5>
+            <% if current_user && current_user != user %>
+              <% if current_user.following?(user) %>
+                <%= button_to "フォロー解除", user_relationship_path(user), method: :post, class: "btn btn-sm btn-danger" %>
+              <% else %>
+                <%= button_to "フォローする", user_relationship_path(user), method: :post, class: "btn btn-sm btn-primary" %>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p>該当するユーザーはいません</p>
+  <% end %>
+  <div class="mt-4">
+    <%= link_to "戻る", user_path(@user), class: "btn btn-outline-secondary" %>
+  </div>
+</div>

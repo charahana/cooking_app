@@ -1,0 +1,28 @@
+<h1>コメント管理</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>コメント内容</th>
+      <th>投稿者</th>
+      <th>対象レシピ</th>
+      <th>投稿日</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @comments.each do |comment| %>
+      <tr>
+        <td><%= comment.id %></td>
+        <td><%= truncate(comment.body, length: 50) %></td>
+        <td><%= comment.user.name %></td>
+        <td><%= link_to comment.recipe.title, admins_recipe_path(comment.recipe) %></td>
+        <td><%= comment.created_at.strftime("%Y-%m-%d %H:%M") %></td>
+        <td>
+          <%= link_to "削除", admins_comment_path(comment), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-sm btn-danger" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

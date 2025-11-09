@@ -4,7 +4,7 @@ class UsersController < ApplicationController
 
   def mypage
     @user = current_user
-    @recipes = @user.recipes
+    @recipes = @user.recipes.order(created_at: :desc)
   end
 
   def index
@@ -13,7 +13,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @recipes = @user.recipes
+    @recipes = @user.recipes.order(created_at: :desc)
   end
 
   def edit
@@ -34,6 +34,18 @@ class UsersController < ApplicationController
     redirect_to new_user_registration_path, notice: "退会処理が完了しました"
   end
 
+  def followings
+    @user = User.find(params[:id])
+    @users = @user.followings
+    render 'show_follow'
+  end
+
+  def followers
+    @user = User.find(params[:id])
+    @users = @user.followers
+    render 'show_follow'
+  end
+
   private
 
   def set_user
@@ -41,6 +53,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :email, :profile, :avatar)
+    params.require(:user).permit(:name, :email, :profile, :profile_image)
   end
 end

@@ -1,0 +1,11 @@
+<turbo-stream action="replace" target="like-button-<%= @recipe.id %>">
+  <temlate>
+    <%= render "likes/like_button", recipe: @recipe %>
+  </template>
+</turbo-stream>
+
+<turbo-stream action="replace" target="like-count-<%= @recipe.id %>">
+  <template>
+    <%= @recipe.likes.count %> いいね
+  </template>
+</turbo-stream>

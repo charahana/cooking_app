@@ -1,0 +1,29 @@
+<div class="container">
+  <h2>あなたがいいねしたレシピ一覧</h2>
+  <hr>
+
+  <% if @liked_recipes.any? %>
+    <div class="row">
+      <% @liked_recipes.each do |recipe| %>
+        <div class="col-md-4 mb-4">
+          <div class="card h-100 shadow-sm">
+            <% if recipe.image.attached? %>
+              <%= image_tag recipe.image.variant(resize_to_fill: [400, 250]).processed, class: "card-img-top" %>
+            <% else %>
+              <%= image_tag "no_image.jpg", class: "card-img-top", alt: "no image" %>
+            <% end %>
+            <div class="card-body">
+              <h5 class="card-title text-truncate" style="max-width: 100%;"><%= link_to recipe.title, recipe_path(recipe), class: "text-dark text-decoration-none" %></h5>
+              <p class="text-muted small">by <%= recipe.user.name %></p>
+              <%= render "likes/like_button", recipe: recipe %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p>まだいいねしたレシピはありません。</p>
+  <% end %>
+  <hr>
+  <%= link_to "マイページに戻る", mypage_users_path, class: "btn btn-outline-secondary mt-3" %>
+</div>

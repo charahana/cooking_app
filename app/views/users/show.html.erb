@@ -2,17 +2,21 @@
   <h2><%= @user.name %>さんのプロフィール</h2>
   <div class="profile-section mb-4 d-flex align-items-center">
     <% if @user.profile_image.attached? %>
-      <%= image_tag @user.profile_image.variant(resize_t_fill: [150, 150]), class: "rounded-circle me-3", alt: "user name" %>
+      <%= image_tag @user.profile_image.variant(resize_to_fill: [150, 150]), class: "rounded-circle me-3", alt: "user name" %>
     <% else %>
       <%= image_tag "no_image.jpg", size: "150x150", class: "rounded-circle me-3", alt: "no image" %>
     <% end %>
     <div>
       <p><strong>ユーザー名:</strong><%= @user.name %></p>
-      <p><strong>登録日:</strong><%= @user.created_at.strftime("%y/%m/%d") %></p>
+      <p><strong>登録日:</strong><%= @user.created_at.strftime("%Y/%m/%d") %></p>
       <p><strong>コメント数:</strong><%= @user.comments.count %></p>
       <% if user_signed_in? && current_user == @user %>
         <%= link_to "プロフィール編集", edit_user_path(@user), class: "btn btn-primary btn-sm" %>
       <% end %>
+      <p class="mt-2">
+        <%= link_to "フォロー中: #{@user.followings.count}", followings_user_path(@user), class: "me-3" %><br>
+        <%= link_to "フォロワー: #{@user.followers.count}", followers_user_path(@user) %>
+      </p>
     </div>
   </div>
   <hr>
@@ -20,6 +24,7 @@
   <% if @recipes.any? %>
     <div class="row">
       <% @recipes.each do |recipe| %>
+        <% next if recipe.draft? && current_user != @user %>
         <div class="col-md-4 mb-4">
           <div class="card h-100 shadow-sm">
             <% if recipe.image.attached? %>
@@ -29,7 +34,7 @@
             <% end %>
             <div class="card-body">
               <h5><%= link_to recipe.title, recipe_path(recipe), class: "text-decoration-none text-dark" %></h5>
-              <p class="text-muted small"><strong>投稿日:</strong><%= recipe.created_at.strftime("%y/%m/%d") %></p>
+              <p class="text-muted small"><strong>投稿日:</strong><%= recipe.created_at.strftime("%Y/%m/%d") %></p>
             </div>
           </div>
         </div>

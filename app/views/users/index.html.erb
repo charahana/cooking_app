@@ -13,6 +13,13 @@
             <h5><%= link_to user.name, user_path(user), class: "text-decoration-none" %></h5>
             <p class="text-muted small">登録日:<%= user.created_at.strftime("%y/%m/%d") %></p>
             <p class="text-muted small">コメント数:<%= user.comments.count %></p>
+            <% if current_user && current_user != user %>
+              <% if current_user.following?(user) %>
+                <%= button_to "フォロー解除", user_relationship_path(user), method: :delete, class: "btn btn-sm btn-danger" %>
+              <% else %>
+                <%= button_to "フォローする", user_relationship_path(user), method: :post, class: "btn btn-sm btn-primary" %>
+              <% end %>
+            <% end %>
           </div>
         </div>
       <% end %>
