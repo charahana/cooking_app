@@ -3,7 +3,7 @@ class Admins::UsersController < ApplicationController
   before_action :set_user, only: [:show, :destroy]
 
   def index
-    @users = User.order(created_at: :asc)
+    @users = User.order(created_at: :desc)
   end
 
   def show

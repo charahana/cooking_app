@@ -16,4 +16,29 @@
       </div>
     </div>
   </div>
-<div>
+  <div class="col-md-6">
+    <div class="card mb-3">
+      <div class="card-body">
+        <h5>今日の新規ユーザー</h5>
+        <p><%= @today_users_count %>人</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card mb-3">
+      <div class="card-body">
+        <h5>今日の投稿数</h5>
+        <p><%= @today_recipes_count %>件</p>
+      </div>
+    </div>
+  </div>
+</div>
+<h3>最新の投稿</h3>
+<ul class="list-group mb-4">
+  <% @recent_recipes.each do |recipe| %>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      <%= link_to recipe.title, admins_recipe_path(recipe) %>
+      <small><%= recipe.created_at.strftime('%Y-%m-%d %H:%M') %></small>
+    </li>
+  <% end %>
+</ul>
