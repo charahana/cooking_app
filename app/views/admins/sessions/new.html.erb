@@ -1,6 +1,11 @@
 <div class="container d-flex justify-content-center align-items-center vh-100">
-  <div class="card p-4 shadow-sm" style="width: 360px;">
-    <h2 class="text-center mb-4">管理者ログイン</h2>
+  <div class="card p-4 shadow-lg border-0" style="width: 360px; border-radius: 12px;">
+    <% flash.each do |key, message| %>
+      <div class="alert alert-<%= key == "alert" ? "danger" : "success" %> text-center">
+        <%= message %>
+      </div>
+    <% end %>
+    <h2 class="text-center mb-4 text-dander fw-bold">管理者ログイン</h2>
     <%= form_with model: resource, as: resource_name, url: session_path(resource_name), local: true do |f| %>
       <div class="mb-3">
         <%= f.label :email, class: "form-label" %>

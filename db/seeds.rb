@@ -6,13 +6,31 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-Admin.create!(
-  email: 'admin@example.com',
-  password: 'password',
-  password_confirmation: 'password'
-)
+Admin.find_or_create_by!(email: 'admin@example.com') do |admin|
+  admin.password = 'password'
+  admin.password_confirmation = 'password'
+end
 
-Admin.find_or_create_by!(email: ENV["ADMIN_EMAIL"]) do |admin|
-  admin.password = ENV["ADMIN_PASSWORD"]
-  admin.password_confirmation = ENV["ADMIN_PASSWORD"]
+if ENV["ADMIN_EMAIL"].present? && ENV["ADMIN_PASSWORD"].present?
+  Admin.find_or_create_by!(email: ENV["ADMIN_EMAIL"]) do |admin|
+    admin.password = ENV["ADMIN_PASSWORD"]
+    admin.password_confirmation = ENV["ADMIN_PASSWORD"]
+  end
+end
+
+if Rails.env.development?
+  # ダミーユーザー
+  user = User.find_or_create_by!(email: 'test@example.com') do |u|
+    u.password = 'password'
+    u.name = 'テストユーザー'
+  end
+
+  # ダミーレシピ
+  5.times do |i|
+    user.recipes.find_or_create_by!(title: "テストレシピ #{i + 1}") do |recipe|
+      recipe.body = "このレシピはダミーデータです。"
+    end
+  end
+
+  puts "Development seeds created!"
 end
